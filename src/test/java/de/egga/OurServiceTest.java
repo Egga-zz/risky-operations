@@ -28,6 +28,7 @@ public class OurServiceTest {
 
     @Test
     void should_return_null() {
+
         OurService ourService = new OurService(riskyService);
         when(riskyService.getNull(eq(ANY_ID))).thenReturn(null);
 
@@ -38,6 +39,7 @@ public class OurServiceTest {
 
     @Test
     void should_throw_exception() {
+
         OurService ourService = new OurService(riskyService);
 
         when(riskyService.throwException(eq(ANY_ID))).thenThrow(new RuntimeException());
@@ -49,6 +51,7 @@ public class OurServiceTest {
 
     @Test
     void should_return_optional() {
+
         OurService ourService = new OurService(riskyService);
         when(riskyService.getOptional(eq(ANY_ID))).thenReturn(empty());
 
@@ -59,6 +62,7 @@ public class OurServiceTest {
 
     @Test
     void should_return_either() {
+
         OurService ourService = new OurService(riskyService);
         when(riskyService.getEither(eq(ANY_ID))).thenReturn(right("404"));
 

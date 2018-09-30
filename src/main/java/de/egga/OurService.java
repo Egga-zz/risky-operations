@@ -21,7 +21,7 @@ public class OurService {
         Integer result = riskyService.getNull(id);
 
         if (result != null) {
-            return result + OFFSET;
+            return transform(result);
         }
 
         return null;
@@ -30,8 +30,7 @@ public class OurService {
     public Integer throwException(String id) {
 
         try {
-            Integer result = riskyService.throwException(id);
-            return result + OFFSET;
+            return transform(riskyService.throwException(id));
 
         } catch (RuntimeException e) {
             throw new IdNotFoundException();
@@ -43,7 +42,7 @@ public class OurService {
         Optional<Integer> result = riskyService.getOptional(id);
 
         if (result.isPresent()) {
-            return of(result.get() + OFFSET);
+            return of(transform(result.get()));
         }
 
         return empty();
@@ -54,9 +53,13 @@ public class OurService {
         Either<Integer, String> result = riskyService.getEither(id);
 
         if (result.isLeft()) {
-            return left(result.getLeft() + OFFSET);
+            return left(transform(result.getLeft()));
         }
 
         return right("ID not found!");
+    }
+
+    private Integer transform(Integer left) {
+        return left + OFFSET;
     }
 }
