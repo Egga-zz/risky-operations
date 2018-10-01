@@ -7,8 +7,6 @@ import java.util.Optional;
 
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
 
 @RequiredArgsConstructor
 public class OurService {
@@ -39,13 +37,8 @@ public class OurService {
 
     public Optional<Integer> getOptional(String id) {
 
-        Optional<Integer> result = riskyService.getOptional(id);
-
-        if (result.isPresent()) {
-            return of(transform(result.get()));
-        }
-
-        return empty();
+        return riskyService.getOptional(id)
+                .map(this::transform);
     }
 
     public Either<Integer, String> getEither(String id) {
